@@ -18,6 +18,9 @@ export class User {
     email: string;
 
     @Column()
+    isAdmin: boolean;
+
+    @Column()
     @IsOptional()
     archived: boolean;
 

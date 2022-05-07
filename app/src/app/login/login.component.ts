@@ -26,15 +26,18 @@ export class LoginComponent implements OnInit {
     let user = new UserDto()
     user.email = this.email
     user.password = this.pass
-    this.service.getCurrentUser().subscribe(result => {
-      console.log('current user = ', result)
-      this.service.authenticate(user).subscribe(result => {
-        console.log('result = ', result)
+      this.service.authenticate(user).subscribe(user => {
+        if(user){
+          console.log(user)
+          this.service.userId = user.id === undefined ? 0 : user.id
+          if(user.isAdmin){
+            console.log('is admin')
+          } else {
+            console.log('is not admin')
+          }
+        }else{
+          //user was not authenticated
+        }
       })
-    })
-
-
   }
-
-
 }

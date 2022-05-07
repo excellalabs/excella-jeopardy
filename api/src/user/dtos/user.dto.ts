@@ -17,5 +17,8 @@ export class UserDto {
     lastName: string;
 
     @Expose()
+    isAdmin: boolean;
+
+    @Expose()
     archived: boolean;
 }

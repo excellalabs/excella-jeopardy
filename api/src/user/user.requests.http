@@ -3,10 +3,11 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "email": "matthew.ratliff@excella.com",
+    "email": "john.smith@excella.com",
     "password": "jeopardy",
-    "firstName": "Matthew",
-    "lastName": "False",
+    "firstName": "John",
+    "lastName": "Smith",
+    "isAdmin": false,
     "archived": false
 }
 

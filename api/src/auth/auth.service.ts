@@ -47,6 +47,7 @@ export class AuthService {
             return null
         }
             
+        console.log('returning user = ', user)
         return user;
     }
 }

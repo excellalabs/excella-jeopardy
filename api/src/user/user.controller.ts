@@ -30,23 +30,13 @@ export class UserController {
      */
     @Post('/authenticate')
     async authenticate(@Body() body: AuthUserDto, @Req() request: FastifyRequest) {
-
-        console.log(request.session)
-
         if(request.session.userId)
             return this.userService.findOne(request.session.userId)
-        
-            console.log('authenticating')
         const user = await this.authService.authenticate(body.email, body.password);
         if(!user)
             return null;
         request.session.set('user', user.id)
-
-            // session.userId = user.id
-            // session.save((err) => {
-            //     console.log("err = ", err)
-            //     return err ? err : 'User login successful '+user.email
-            // })
+        return user
     }
 
     @Get('/session')
@@ -70,6 +60,7 @@ export class UserController {
      */
     @Get('/currentUser')
     getCurrentUser(@Req() request: FastifyRequest) {
+        console.log('current user session = ', request.session)
         const user = request.session.get('user')
         if(!user)
             return null

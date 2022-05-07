@@ -15,6 +15,9 @@ export class CreateUserDto {
     lastName: string;
 
     @IsBoolean()
+    isAdmin: boolean;
+
+    @IsBoolean()
     @IsOptional()
     archived: boolean;
 
