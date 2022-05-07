@@ -15,7 +15,7 @@ export class AuthService {
         // See if email is in use
         const users = await this.usersService.findByEmail(email)
         if(users.length){
-            throw new BadRequestException('email already in use')
+            throw new BadRequestException('Email already in use')
         }
         // Hash users password
         const salt = randomBytes(8).toString('hex');
@@ -34,7 +34,8 @@ export class AuthService {
     async authenticate(email: string, password: string){
         const [user] = await this.usersService.findByEmail(email);
         if(!user) {
-            throw new NotFoundException('user not found')
+            console.log('User not found')
+            return null
         }
 
         const [salt, storedHash] = user.password.split('.');
@@ -42,7 +43,8 @@ export class AuthService {
         const hash = (await scrypt(password, salt, 32)) as Buffer;
 
         if(storedHash !== hash.toString('hex')) {
-            throw new BadRequestException('invalid password for this user')
+            console.log('Invalid password for '+user.email)
+            return null
         }
             
         return user;

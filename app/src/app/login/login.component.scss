@@ -1,9 +1,14 @@
 mat-card {
     background-color:white;
     border:1px solid gray;
-    width:90%;
+    width:80%;
     color:black;
   }
-.matinput {
+mat-input {
   height:30px;
+  width:300px;
+  color:white;
+}
+mat-form-field {
+  color:white;
 }

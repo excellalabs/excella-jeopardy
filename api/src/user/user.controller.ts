@@ -1,4 +1,4 @@
-import { Controller, Session, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Session, Req, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
@@ -6,6 +6,7 @@ import { UserService } from './user.service';
 import { Serialize } from '../interceptors/serialize.interceptor';
 import { AuthService } from '../auth/auth.service';
 import { AuthUserDto } from './dtos/auth-user.dto';
+import { FastifyRequest } from 'fastify-secure-session';
 
 @Serialize(UserDto)
 @Controller('user')
@@ -19,7 +20,6 @@ export class UserController {
      */
     @Post()
     async create(@Body() newUser: CreateUserDto) {
-        console.log("creating new user")
         return await this.userService.create(newUser)
     }
 
@@ -29,14 +29,24 @@ export class UserController {
      * @returns authenticated user
      */
     @Post('/authenticate')
-    async authenticate(@Body() body: AuthUserDto, @Session() session) {
-        console.log(body.email)
-        console.log(body.password)
+    async authenticate(@Body() body: AuthUserDto, @Req() request: FastifyRequest) {
+
+        console.log(request.session)
+
+        if(request.session.userId)
+            return this.userService.findOne(request.session.userId)
+        
+            console.log('authenticating')
         const user = await this.authService.authenticate(body.email, body.password);
-            session.userId = user.id
-            session.save((err) => {
-                console.log(err ? err : 'User login successful: ',user.email);
-            })
+        if(!user)
+            return null;
+        request.session.set('user', user.id)
+
+            // session.userId = user.id
+            // session.save((err) => {
+            //     console.log("err = ", err)
+            //     return err ? err : 'User login successful '+user.email
+            // })
     }
 
     @Get('/session')
@@ -59,8 +69,12 @@ export class UserController {
      * @returns current user
      */
     @Get('/currentUser')
-    getCurrentUser(@Session() session) {
-        return this.userService.findOne(session.userId)
+    getCurrentUser(@Req() request: FastifyRequest) {
+        const user = request.session.get('user')
+        if(!user)
+            return null
+
+        return this.userService.findOne(request.session.get('user'))
     }
 
     /**

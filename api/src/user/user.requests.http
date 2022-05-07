@@ -3,10 +3,10 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "email": "bill.bob@excella.com",
-    "password": "mynewpassword",
-    "firstName": "Bill",
-    "lastName": "Bob",
+    "email": "matthew.ratliff@excella.com",
+    "password": "jeopardy",
+    "firstName": "Matthew",
+    "lastName": "False",
     "archived": false
 }
 
@@ -15,8 +15,8 @@ POST http://localhost:3000/user/authenticate
 Content-Type: application/json
 
 {
-    "email": "bill.bob@excella.com",
-    "password": "mynewpassword"
+    "email": "matthew.ratliff@excella.com",
+    "password": "jeopardy"
 }
 
 ### Determine if a session exists

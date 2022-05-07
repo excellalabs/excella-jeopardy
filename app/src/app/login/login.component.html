@@ -9,18 +9,29 @@
             <mat-card-header>
               <mat-card-title>Login</mat-card-title>
             </mat-card-header>
-            <mat-card-content style="background-color:#eeeeee;padding:10px">
+            <mat-card-content style="padding:10px">
                 <form autocomplete="off">
                     <ng-container>
                         <h3>Enter your email address</h3>
-                        <div><input matInput style="height:30px;width:300px" type="text"></div>
+                        <div style="background-color:#2b5b8a">
+                            <mat-form-field class="example-full-width" style="width: 80%;padding-left:10px" appearance="fill">
+                                <mat-label>Email Address</mat-label>
+                                <input matInput [(ngModel)]="email" type="text"  [ngModelOptions]="{standalone: true}" placeholder="Ex. first.last@excella.com">
+                              </mat-form-field>
+                        </div>
                         <h3>Enter your password (if registered)</h3>
-                        <div><input matInput style="height:30px;width:300px" type="password"></div>
+                        <div style="background-color:#2b5b8a">
+                            <mat-form-field class="example-full-width" style="width: 80%;padding-left:10px" appearance="fill">
+                                <mat-label>Password</mat-label>
+                                <input matInput [(ngModel)]="pass" [ngModelOptions]="{standalone: true}" type="password">
+                              </mat-form-field>
+                        </div>
                         <div>
-                            <button mat-button color="primary">Login</button>
+                            <button mat-button (click)="login()" color="primary">Login</button>
                         </div>
                         <hr/><br/>
-                        <h3>Register <a href="">Here</a></h3>
+                        <h3>Don't have an account yet?</h3>
+                        <h4><a href="">Register Here</a></h4>
                     </ng-container>
                 </form>
             </mat-card-content>
