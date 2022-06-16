@@ -18,6 +18,7 @@ import { MatCardModule } from  '@angular/material/card';
 import { MatInputModule } from  '@angular/material/input';
 import { MatButtonModule } from  '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { AdminModule } from './admin/admin.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserModule,
     AppRoutingModule,
     LoginModule,
+    AdminModule,
 
     BrowserAnimationsModule,
     MatDialogModule,

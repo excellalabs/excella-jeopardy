@@ -7,6 +7,14 @@ const routes: Routes = [
   {
     path: '', component: LoginComponent
   },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+  },
+  {
+    path: 'gameplay/session',
+    loadChildren: () => import('./gameplay/session/session.module').then(m => m.SessionModule),
+  },
 ];
 
 @NgModule({
